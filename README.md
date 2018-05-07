@@ -25,7 +25,7 @@ We have decided to use some of the most famous available Python libraries:
 According to the collaborative-filtering approach, the adopted training technique is ALS (Alternating Least Squares)
 
 ## Special thanks
-We want to thank you our teacher, <a href="https://github.com/michiard">Michiardi Pietro</a>, who has realized the baseline for the notebook and has guided us during its realization, teaching us all the techniques presented here.
+We want to thank you our teacher, <a href="https://github.com/michiard" target="_blank">Michiardi Pietro</a>, who has realized the baseline for the notebook and has guided us during its realization, teaching us all the techniques presented here.
 
 ## Credits
-ANGIUS Marco and AVALLE Giorgio - Ⓒ2018
+<a href="https://github.com/MrAngius" target="_blank">ANGIUS Marco</a> and <a href="https://github.com/gavalle94" target="_blank">AVALLE Giorgio</a> - Ⓒ2018
