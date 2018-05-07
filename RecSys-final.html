@@ -11814,15 +11814,6 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="TODO">TODO<a class="anchor-link" href="#TODO">&#182;</a></h1><p>Settare lo stile CSS dei nostri commenti, usando le classi predefinite da Michiardi</p>
-<div class="alert alert-warning">PUT YOUR COMMENT HERE </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="1.-Data">1. Data<a class="anchor-link" href="#1.-Data">&#182;</a></h1><p>Understanding data is one of the most important part when designing any machine learning algorithm. In this notebook, we will use a data set published by Audioscrobbler - a music recommendation system for last.fm. Audioscrobbler is also one of the first internet streaming radio sites, founded in 2002. It provided an open API for “scrobbling”, or recording listeners’ plays of artists’ songs. last.fm used this information to build a powerful music recommender engine.</p>
 <h2 id="1.1.-Data-schema">1.1. Data schema<a class="anchor-link" href="#1.1.-Data-schema">&#182;</a></h2><p>Unlike a rating dataset which contains information about users' preference for products (one star, 3 stars, and so on), the datasets from Audioscrobbler only has information about events: specifically, it keeps track of how many times a user played songs of a given artist and the names of artists. That means it carries less information than a rating: in the literature, this is called explicit vs. implicit ratings.</p>
 <h3 id="Reading-material">Reading material<a class="anchor-link" href="#Reading-material">&#182;</a></h3><ul>
@@ -12252,8 +12243,9 @@ What is the maximum and minimum values of column `artistID` ?
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>From the statistics we can observe that it's possible to have some <em>Play Counts</em> which have value 1. This means that there will be possible users which have only one play for an artist. As well we can notice that the maximum value is a quite huge number (439771) considering that a single user has listened that amount of times a single artists. On average, the number of <em>Play Count</em> is close to 15, but on contrary the standard deviation is high.</p>
-
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+From the statistics we can observe that it's possible to have some *Play Counts* which have value 1. This means that there will be possible users which have only one play for an artist. As well we can notice that the maximum value is a quite huge number (439771) considering that a single user has listened that amount of times a single artists. On average, the number of *Play Count* is close to 15, but on contrary the standard deviation is high.
+</div>
 </div>
 </div>
 </div>
@@ -12558,23 +12550,29 @@ Explain and comment the figure you just created:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h4><p>The <em>Total Plays</em> values range is from 1 to 674412 as shown using the <em>describe</em> method from Pandas Data Frames. The table gives us addiitonal information about the values considering the set percentiles.<br>
-Some important considerations:
+<h3 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h3><div class="alert alert-warning">
+The *Total Plays* values range is from 1 to 674412 as shown using the *describe* method from Pandas Data Frames. The table gives us addiitonal information about the values considering the set percentiles.<br>
 <br>
-From the first graph we can notice something strange in the data distribution: in a more detailed analysis, zooming in we can see that:</p>
+<b>Some important considerations</b>:
+<br>
+From the first graph we can notice something strange in the data distribution: in a more detailed analysis, zooming in we can see that:
 <ul>
-<li>something more than the 80% of the users have a number of play counts that is lower than 4000 (0.59% wrt the maximum counter value)</li>
-<li>around the 99% of users have a number of play counts that is lower than 21569.2 (3.19% wrt the maximum counter value)</li>
+    <li>something more than the 80% of the users have a number of play counts that is lower than 4000 (0.59% wrt the maximum counter value)</li>
+    <li>around the 99% of users have a number of play counts that is lower than 21569.2 (3.19% wrt the maximum counter value)</li>
 </ul>
-<p><strong>The problem</strong> <br></p>
-<ul>
-<li>There are outliers, and this is shown by the previous query about the <u>Top 20 active users</u>. Also, this can be observe from <strong>Figure 1</strong> and <strong>Figure 6</strong> where the tail the distribution is associated with high values but only for a really small percentage of the population. Those outliers are not significative for our model because we want to create a raccomendation algorithm which is based on popular artists among the average. We want to avoid to classify an artist as a popular one only because a strict amount of users are more active than the rest of the population.</li>
-<li>Also, there are users for which the total amount of plays (and so interaction with the system) is very low. This is a problem for reccomendation systems, because most for those users, may have only plays for few artists or many few plays for a lot of artist. In this scenario called also <strong>cold start</strong> it's difficult for the algorithm to suggested reccomendations for a <em>new user</em> due to the fact that it's impossible to compare this user which more active ones.</li>
-</ul>
-<p><strong>An exaplanation about outliers</strong><br>
-The most curious users could actually be outliers. Their behaviour is very different from the others: in fact, the mean value for the playCount field is 2509 which is also affected by the <em>new users</em> with a low value of registered interactions with the system.<br>
-Anyway, this difference may be due to the fact they were pioneers, registering longtime ago to a service that has recently become very famous, or maybe they are bots. Another possibility is an error inside the measured data or a tampering.</p>
 
+<h2>The problem</h2>
+
+<ul>
+    <li>There are outliers, and this is shown by the previous query about the <u>Top 20 active users</u>. Also, this can be observed from <i>Figure 1</i> and <i>Figure 6</i> where the tail of the distribution associated with high values refers only to a really small percentage of the population. Those outliers are not significative for our model because we want to create a raccomendation algorithm which is based on popular artists among the average. We want to avoid to classify an artist as a popular one only because a strict amount of users like him/her a lot.</li>
+    <li>Also, there are users for which the total amount of plays (and so interaction with the system) is very low. This is a problem for reccomendation systems, because most for those users, may have only plays for few artists or many few plays for a lot of artist. In this scenario called also **cold start** it's difficult for the algorithm to suggested reccomendations for a *new user* due to the fact that it's impossible to compare this user which more active ones.</li>
+</ul>
+
+
+<h2>An explanation about outliers</h2>
+The most curious users could actually be outliers. Their behaviour is very different from the others: in fact, while the mean value for the playCount field is 2509 we have to consider that it is affected by the *new users* (whose interaction with the system is of course very limited).<br>
+Anyway, this difference may be due to the fact they were pioneers, registering longtime ago to a service that has recently become very famous, or maybe they are bots. Another possibility is an error inside the measured data or a tampering.
+</div>
 </div>
 </div>
 </div>
@@ -12679,7 +12677,8 @@ only showing top 20 rows
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">artistPopularity_DF</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;sum(PlayCount)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;sum(PlayCount)&quot;</span><span class="p">,</span> <span class="s2">&quot;Play Counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># some statistics about the &quot;PlayCount&quot; field</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">artistPopularity_DF</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;sum(PlayCount)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s2">&quot;sum(PlayCount)&quot;</span><span class="p">,</span> <span class="s2">&quot;Play Counts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span>
 <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">percentiles</span><span class="o">=</span><span class="p">[</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">50</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="o">.</span><span class="mi">90</span><span class="p">,</span> <span class="o">.</span><span class="mi">99</span><span class="p">,</span> <span class="o">.</span><span class="mi">999</span><span class="p">])</span>
 </pre></div>
 
@@ -12780,7 +12779,8 @@ only showing top 20 rows
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">artistPopularity</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we want now to visualize the data distribution, for the artists</span>
+<span class="n">pdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">artistPopularity</span><span class="p">)</span>
 <span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span> <span class="n">pdf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">yvals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span>
 <span class="c1">#print(np.arange(len(Y)))</span>
@@ -12829,15 +12829,17 @@ only showing top 20 rows
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h4><p>The <em>Total Plays</em> values range is from 1 to 1 to 2502130 as shown using the <em>describe</em> method from Pandas Data Frames. The table gives us addiitonal information about the values considering the set percentiles.<br>
-From the first graph we can notice something similar (but more accentuated) to what we have considered before about the data distribution: in a more detailed analysis, zooming in we can see that:</p>
+<h3 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h3><div class="alert alert-warning">
+The *Total Plays* values range is from 1 to 1 to 2502130 as shown using the *describe* method from Pandas Data Frames. The table gives us additional information about the values, considering the set percentiles.<br><br>
+From the <b>first graph</b> we can notice something similar (but more accentuated) to what we have considered before about the data distribution: in a more detailed analysis, zooming in we can see that:
 <ul>
-<li>the 80% of the artists seem to be very unknown to the users, because they have a number of play counts lower than 15 (0.0006% wrt the maximum counter value)</li>
-<li>the 99% of the artists seem to be unknown too! Their play counters are lower than 1400 (0.056% wrt the maximum counter value)</li>
+    <li>the 80% of the artists seem to be very unknown to the users, because they have a number of play counts lower than 15 (0.0006% wrt the maximum counter value)</li>
+    <li>the 99% of the artists seem to be unknown too! Their play counters are lower than 1400 (0.056% wrt the maximum counter value)</li>
 </ul>
-<p><strong>The problem</strong> <br>
-What we can see from the graphs is actually something we are aware of: artistIDs are not consistent. We are plenty of aliases, that should be remapped in order to obtain a more correct data distribution. We will repeat the analysis later, after the remapping process, in order to understand if there are some outliers and how effective the aliases dataset we have is.</p>
 
+<h3>The problem</h3>
+What we can see from the graphs is actually something we are aware of: artistIDs are not consistent. We are plenty of aliases, that should be remapped in order to obtain a more correct data distribution. We will repeat the analysis later, after the remapping process, in order to understand if there are some outliers and how effective the aliases dataset we have is.
+</div>
 </div>
 </div>
 </div>
@@ -12871,7 +12873,8 @@ Comment the figure you just obtained:
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sortedArtist</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">artistPopularity</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># retrieve the most listened artists</span>
+<span class="n">sortedArtist</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">artistPopularity</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])[:</span><span class="mi">5</span><span class="p">]</span>
 
 <span class="n">artistID</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">sortedArtist</span><span class="p">]</span>
 
@@ -12918,9 +12921,10 @@ Comment the figure you just obtained:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>Altough these data may not be representative (because of the presence of artistID aliases), counter values are reasonable. There exist several single songs (eg: YouTube music videos) that have been listened to more than 2.5 million times.<br>
-Anyway, looking at the top-5 artists is not enough to understand how data are distributed: in order to do that, the graphs we did before (cumulative density functions) are more useful. Also, the top-5 does not allow us to compute expectations (mean, variance... etc).</p>
-
+<h3 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h3><div class="alert alert-warning">
+Altough these data may not be representative (because of the presence of artistID aliases), counter values are reasonable. There exist several single songs (eg: YouTube music videos) that have been listened to more than 2.5 million times.<br>
+Anyway, looking at the top-5 artists is not enough to understand how data are distributed: in order to do that, the graphs we did before (cumulative density functions) are more useful. Also, the top-5 does not allow us to compute expectations (mean, variance... etc).
+</div>
 </div>
 </div>
 </div>
@@ -12936,7 +12940,7 @@ Anyway, looking at the top-5 artists is not enough to understand how data are di
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TODO:-commenta">TODO: commenta<a class="anchor-link" href="#TODO:-commenta">&#182;</a></h2>
+<h2 id="Correlating-most-active-users-and-most-popular-artists">Correlating most active users and most popular artists<a class="anchor-link" href="#Correlating-most-active-users-and-most-popular-artists">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -13021,12 +13025,16 @@ Anyway, looking at the top-5 artists is not enough to understand how data are di
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comments-to-our-results">Comments to our results<a class="anchor-link" href="#Comments-to-our-results">&#182;</a></h4><p>We have considered the <em>most active users</em> (as defined in this context) and the <em>most listened artists</em> (as well, as defined in this context), for plotting reasons we can only show a verry strict amount of the population. To see if there exists a correletion between the <em>most active users</em> and the <em>most popular artists</em> we crossed (or let's say joint) the two statistics, focusing our attention to those users which are above a given threshold of plays and for which the played artists was one among the most popular (defined also with a threshold).</p>
-<p><br>
-What came out is that for a given user, with id: 2064012, there is actuality a strange value which is 4 times above the ones for the most active users. Curiosly, the ID is not the one of the user which has the highest number of plays in the system. These means that that user has high number of plays distributed among many artists due to it's not appearing in this scenario.</p>
-<p><br>
-Finally, we can observe from the heatmap that the <em>most active users</em> do not have all plays for a given artists above our set threshold, indeed only few present this characteristic of having an high number of plays for many <em>famous artists</em>. Clearly, for the seek of raccomendation, users which like most of the artist do not represent a good comaprative model for suggestion to new users.</p>
+<h3 id="Comments-to-our-results">Comments to our results<a class="anchor-link" href="#Comments-to-our-results">&#182;</a></h3><div class="alert alert-warning">
+We have now considered the *most active users* (as defined in this context) and the *most listened artists* (as well, as defined in this context): for plotting reasons, we can only show a very strict amount of the population. <br>
+To see if there exists a correletion between the *most active users* and the *most popular artists* we crossed (or let's say: joint) the two statistics, focusing our attention to those users which are above a given threshold of plays and for which the played artists was one among the most popular (defined also with a threshold). 
 
+<br><br>
+What came out is that only for a given user, whose id is "2064012", there is actually a strange value which is 4 times above the ones for the most active users. Curiosly, the ID is not the one of the user which has the highest number of plays in the system.
+<br>
+<br>
+Finally, we can observe from the heatmap that the *most active users* do not have all plays for a given artists above our set threshold, indeed only few present this characteristic of having an high number of plays for many *famous artists*. Clearly, for the seek of raccomendation, users which like most of the artist do not represent a good comaprative model for suggestion to new users.
+</div>
 </div>
 </div>
 </div>
@@ -13243,8 +13251,9 @@ artistDF.filter(lambda s : any(x in s for x in cleaningVector))
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>It looks like they point to the same artist: what we can do is to browse the "artist_alias" dataset in order to confirm this idea.</p>
-
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+It looks like they point to the same artist: what we can do is to browse the "artist_alias" dataset in order to confirm this idea.
+</div>
 </div>
 </div>
 </div>
@@ -13325,15 +13334,17 @@ only showing top 5 rows
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>What if the aliases dataset presents some errors or inconsistencies?</p>
+<h3 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h3><div class="alert alert-warning">
+What if the aliases dataset presents some *errors* or *inconsistencies*?
 <ul>
-<li>misspelledIDs that do not exist in the original datasets are just ignored (so, they do not interfere)</li>
-<li>standardIDs that do not exist in the original datasets make the misspelledIDs to be remapped anyway</li>
+    <li><b>misspelledIDs</b> that do not exist in the original datasets are just ignored (so, they do not interfere)</li>
+    <li><b>standardIDs</b> that do not exist in the original datasets make the misspelledIDs to be remapped anyway</li>
 </ul>
-<p>Now: we are not able to state if a missing standardID is something wrong (invalid reference) or something that exist but has never been used in the original dataset. For example, it could be an artistID "artificially" created in order to make several aliases to be remapped in the same correct way.
 <br>
-The conclusion is: we will use the aliases dataset as a reference, assuming that it has been previously checked and provided by us without errors.</p>
-
+Now: we are not able to state if a missing standardID is something wrong (invalid reference) or something that exist but has never been used in the original dataset. For example, it could be an artistID "artificially" created in order to make several aliases to be remapped in the same correct way.
+<br><br>
+The <u>conclusion</u> is: we will use the aliases dataset as a reference, assuming that it has been previously checked and provided by us without errors.
+</div>
 </div>
 </div>
 </div>
@@ -13403,8 +13414,9 @@ Verify the answer of question 3.2 ("Are artists that have ID equal to `1000010` 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Answer-3.4">Answer 3.4<a class="anchor-link" href="#Answer-3.4">&#182;</a></h4><p>From the result we can see that the two IDs belong to the same artist. As stated, the id: 1000010 is already a standard ID and not a misspelled one (in fact, we do not have results in the first lookup).</p>
-
+<h3 id="Answer-3.4">Answer 3.4<a class="anchor-link" href="#Answer-3.4">&#182;</a></h3><div class="alert alert-warning">
+From the result we can see that the two IDs belong to the same artist. As stated, the id "1000010" is already a standard ID and not a misspelled one (in fact, we do not have results in the first lookup).
+</div>
 </div>
 </div>
 </div>
@@ -13537,8 +13549,13 @@ The script takes 0.729175 seconds
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Proof-of-&quot;bad-artist-IDs&quot;-solved">Proof of "bad artist IDs" solved<a class="anchor-link" href="#Proof-of-&quot;bad-artist-IDs&quot;-solved">&#182;</a></h4><p>To prove that the dictionary correctly solved the problem of misspelled IDs we decided to join the artistID we have mapped as cleaned with the dataFrame <em>artistAliasDF</em> which contains the mapping between the mispelledID and standardID. What we obtain a dataFrame with two columns, if the IDs are the same in both columns we esclude them (the IDs marked as "misspelled" was already the corrected one). If the final dataFrame is empty (after the filter) we indeed success in cleaning the data</p>
-
+<h3 id="Proof-of-&quot;bad-artist-IDs&quot;-solved">Proof of "bad artist IDs" solved<a class="anchor-link" href="#Proof-of-&quot;bad-artist-IDs&quot;-solved">&#182;</a></h3><div class="alert alert-warning">
+To prove that the dictionary correctly solved the problem of misspelled IDs we decided to join the artistID we have mapped as *cleaned* with the dataFrame *artistAliasDF* (which contains the mapping between the mispelledID and standardID). 
+<br><br>
+What we obtain is a dataFrame with two columns: then, if the IDs are the same in both columns we esclude them (the IDs marked as "misspelled" was already the corrected one). <br>
+<br>
+Finally, if the final dataFrame is empty (after the filter) we indeed succeded in cleaning the data
+</div>
 </div>
 </div>
 </div>
@@ -13682,7 +13699,9 @@ only showing top 10 rows
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TODO:-comment">TODO: comment<a class="anchor-link" href="#TODO:-comment">&#182;</a></h2>
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+We have just demonstrated that there are no more known aliases to be remapped. Let us now repeat the data distribution analysis, to see what has actually changed
+</div>
 </div>
 </div>
 </div>
@@ -13747,9 +13766,11 @@ only showing top 10 rows
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="TODO">TODO<a class="anchor-link" href="#TODO">&#182;</a></h1><p>Le sostituzioni degli alias sono corrette, ma la situazione cambia poco. Il dataset e' lercio<br>
-=&gt; Bisogna pulire voci del dataset come "unknown", "miscellaneous", "various"... ecc</p>
-
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+Although we were expecting to have a more uniform distribution of artists, this analysis clearly show that the situation is very similar to the previous one. Something has changed, but we still have lot of artists that look to be "not popular" at all.
+<br><br>
+Anyway: having a look to those artists, characterized by lower *PlayCount* values, we can actually confirm our idea. Most of them are not artists! They are song titles, featurings and missing or wrong values (like "unknown"). Later, we will try to clean the dataset from these values
+</div>
 </div>
 </div>
 </div>
@@ -13887,8 +13908,9 @@ How many unique artists? Compare with the result when using old data.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="&#160;Answer-5.1">&#160;Answer 5.1<a class="anchor-link" href="#&#160;Answer-5.1">&#182;</a></h4><p>The previous number is: 1631028</p>
-
+<h3 id="Answer-5.1">Answer 5.1<a class="anchor-link" href="#Answer-5.1">&#182;</a></h3><div class="alert alert-warning">
+The previous number is: 1631028
+</div>
 </div>
 </div>
 </div>
@@ -13896,13 +13918,15 @@ How many unique artists? Compare with the result when using old data.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Question-5.2">Question 5.2<a class="anchor-link" href="#Question-5.2">&#182;</a></h4><p><div class="alert alert-info">
-Who are the top-10 artistis?</p>
+<h4 id="Question-5.2">Question 5.2<a class="anchor-link" href="#Question-5.2">&#182;</a></h4><div class="alert alert-info">
+Who are the top-10 artistis?
 <ul>
   <li>In terms of absolute play counts</li>
   <li>In terms of "audience size", that is, how many users listened to one of their track at least once</li>
-</ul><p>Plot the results, and explain the figures you obtain.</p>
-<div>
+</ul>  
+
+Plot the results, and explain the figures you obtain.
+</div>
 </div>
 </div>
 </div>
@@ -14124,8 +14148,9 @@ Plot the results
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Low-popularity-artists">Low popularity artists<a class="anchor-link" href="#Low-popularity-artists">&#182;</a></h2><p>Having a look to the dataset, we can notice that several artists are actually something else (for example: song titles, unknown values or featuring). Because most of this wrong values are "artists" with small associated playCount values, we think that we could be able to clean the dataset removing the artists whose total playCount is under a given value (for example, 10).</p>
-<p>...But, unfortunately, there is a problem: those artists represent the majority! (75%)</p>
+<p><hr></p>
+<h2 id="Low-popularity-artists">Low popularity artists<a class="anchor-link" href="#Low-popularity-artists">&#182;</a></h2><p>Having a look to the dataset, we can notice that several artists are actually something else (for example: song titles, unknown values or featurings). Because most of this wrong values are "artists" with small associated playCount values, we think that we could be able to clean the dataset removing the artists whose total playCount is under a given value (for example, 10).</p>
+<p>...But, unfortunately, there is a problem: those artists represent the majority! (more than 75%)</p>
 <p>So, we need to think a strategy to implement. Our opinion, for the moment, is that artists whose songs have been listened to very few times are not relevant: although we may have "cold start" and an artist-discovery more focused on famous ones, the wrong/missing data we are going to delete will lead us to better results.</p>
 <p>It is also true that:</p>
 <ul>
@@ -14166,7 +14191,7 @@ Plot the results
 <div class="prompt input_prompt">In&nbsp;[177]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># low popularity artists ratio</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># the complement of non-popular artists ratio</span>
 <span class="n">filterNonPopularArtists</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">/</span><span class="n">number_of_artists</span>
 </pre></div>
 
@@ -14200,9 +14225,9 @@ Plot the results
 <div class="prompt input_prompt">In&nbsp;[178]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nonPopularArtistsDF</span> <span class="o">=</span> <span class="n">filterNonPopularArtists</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">popularArtistsDF</span> <span class="o">=</span> <span class="n">filterNonPopularArtists</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
 <span class="c1"># show the association between the artistID and the name</span>
-<span class="n">nonPopularArtistsDF</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">artistDF</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;artistID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">popularArtistsDF</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">artistDF</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;artistID&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -14332,7 +14357,15 @@ Since we have no information about <code>artists</code>, except their names, we 
 <h2 id="2.3-Collaborative-Filtering">2.3 Collaborative-Filtering<a class="anchor-link" href="#2.3-Collaborative-Filtering">&#182;</a></h2><p>In this section, we study a member of a broad class of algorithms called <code>latent-factor</code> models. They try to explain observed interactions between large numbers of users and products through a relatively small number of unobserved, underlying reasons. It is analogous to explaining why millions of people buy a particular few of thousands of possible albums by describing users and albums in terms of tastes for perhaps tens of genres, tastes which are <strong>not directly observable or given</strong> as data.</p>
 <p>First, we formulate the learning problem as a matrix completion problem. Then, we will use a type of <code>matrix factorization</code> model to "fill in" the blanks.  We are given implicit ratings that users have given certain items (that is, the number of times they played a particular artist) and our goal is to predict their ratings for the rest of the items. Formally, if there are $n$ users and $m$ items, we are given an $n \times m$ matrix $R$ in which the generic entry $(u, i)$ represents the rating for item $i$ by user $u$. <strong>Matrix $R$ has many missing entries indicating unobserved ratings, and our task is to estimate these unobserved ratings</strong>.</p>
 <p>A popular approach to the matrix completion problem is <strong>matrix factorization</strong>, where we want to "summarize" users and items with their <strong>latent factors</strong>.</p>
-<h3 id="2.3.1-Basic-idea-and-an-example-of-Matrix-Factorization">2.3.1 Basic idea and an example of Matrix Factorization<a class="anchor-link" href="#2.3.1-Basic-idea-and-an-example-of-Matrix-Factorization">&#182;</a></h3><p>For example, given a preference matrix 5x5 as below, we want to approximate this matrix into the product of two smaller matrixes $X$ and $Y$ .</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.3.1-Basic-idea-and-an-example-of-Matrix-Factorization">2.3.1 Basic idea and an example of Matrix Factorization<a class="anchor-link" href="#2.3.1-Basic-idea-and-an-example-of-Matrix-Factorization">&#182;</a></h3><p>For example, given a preference matrix 5x5 as below, we want to approximate this matrix into the product of two smaller matrixes $X$ and $Y$.</p>
 <p>$$
 M = 
 \begin{bmatrix}
@@ -14359,7 +14392,8 @@ $$</p>
 <p>$M^\prime$ is an approximation that is as close to A as possible. To calculate how far from $M$ $M^\prime$ is, we often calculate the sum of squared distances of non-empty elements in $M$ and the corresponding elements in $M^\prime$.
 In this way, for $M^\prime$, besides the approximated elements in $M$, we also have the non-observed elements. Therefore, to see how much does user <code>i</code> like item <code>j</code>, we simply pick up the value of $M^\prime_{i,j}$.</p>
 <p>The challenge is how to calculate $X$ and $Y$. The bad news is that this can't be solved directly for both the best $X$ and best $Y$ at the same time. Fortunately, if $Y$ is known, we can calculate the best of $X$, and vice versa. It means from the initial values of $X$ and $Y$ in the beginning, we calculate the best $X$ according to $Y$, and then calculate the best $Y$ according to the new $X$. This process is repeated until the distance from $XY$ to $M$ is small. It's simple, right ?</p>
-<p>Let's take an example. To compute the approximation for the above 5x5 matrix $M$, first, we initialize the value of $X$ and $Y$ as below.</p>
+<p>Let's take an example. To compute the approximation for the above 5x5 matrix $M$, first, we initialize the value of $X$ and $Y$ as below.
+<br></p>
 <p>$$
 M^\prime = X \times Y =
 \begin{bmatrix}
@@ -14771,7 +14805,6 @@ Using the dictionary in question 6.1, prepare RDD `userArtistDataRDD` by replaci
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Featuring-between-artists">Featuring between artists<a class="anchor-link" href="#Featuring-between-artists">&#182;</a></h2><p>We want now to consider featurings between two artists</p>
-<h1 id="TODO">TODO<a class="anchor-link" href="#TODO">&#182;</a></h1><p>Non so bene cosa fare: in teoria, si potrebbe ricondurre il featuring all'artista coinvolto... ma è complicato: infatti, non è detto che il nome di artista che compare qui sia quello riferito al suo standardID. Rimuovere il record del tutto forse non ha senso (ce ne sono parecchi). Inolte: il featuring potrebbe coinvolgere più di due artisti, come li riconosciamo?</p>
 
 </div>
 </div>
@@ -14809,7 +14842,8 @@ Using the dictionary in question 6.1, prepare RDD `userArtistDataRDD` by replaci
     <span class="s1">&#39;*feat*&#39;</span>
 <span class="p">]</span>
 
-<span class="c1"># TODO: c&#39;è poi il feat a fine parola ed il feat appiccicato ai nomi degli artisti...</span>
+<span class="c1"># NOTE: we are still not considering &quot;feat&quot; at the end of the name and &quot;feat&quot; inserted </span>
+<span class="c1"># between two artist names, without any spaces</span>
 </pre></div>
 
 </div>
@@ -14859,9 +14893,27 @@ Using the dictionary in question 6.1, prepare RDD `userArtistDataRDD` by replaci
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comment:-our-problem">Comment: our problem<a class="anchor-link" href="#Comment:-our-problem">&#182;</a></h3><div class="alert alert-warning">
+<b>We do not know how to manage featurings</b>: in fact, they represent a <u>potential source of information</u>. 
+<br><br>
+Theoretically speaking, it is possible to identify all the artists involved in a featuring and create duplicated version of the record (same userID and PlayCount value, one record per involved artistID).<br>
+In practise, we are able to identify featuring partially (with great effort) and we are often not able to separate artists names: the reason is why there is not a common separator for the names. Several separators can be used, in several versions each: sometimes, they are missing completely (no blank spaces at all). 
+<br><br>
+Also: in order to map the names with the IDs, we would need to perform a join operation and several regex searches. This is something extremely expensive, and the effort is not remunerated because of the data conditions.<br>
+Anyway, we won't delete all these records from the dataset: they could be used by the system to retrieve similar users and guide them to a given genre of artists and songs.
+<br><br>
+In <u>conclusion</u>: the problem is spotted, but not solved 
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><hr></p>
-<h2 id="Experiment:-setting-up-the-utilty-functions">Experiment: setting up the utilty functions<a class="anchor-link" href="#Experiment:-setting-up-the-utilty-functions">&#182;</a></h2><p>Trying to exclude those features (artists) which includes artistID whose total number of <em>Play Count</em> is below a given threshold.
-From now on we have written some functions to help us in a further experiment. The idea is to check if eliminating those features, which represent artistis whose total <em>Play Count</em> is below a given threshold, may improve the AUC for the model. We call these artist <em>fewListenedArtists</em>.
+<h2 id="Experiment:-setting-up-the-utility-functions">Experiment: setting up the utility functions<a class="anchor-link" href="#Experiment:-setting-up-the-utility-functions">&#182;</a></h2><p>As anticipated before, we are trying to exclude those records which involves artistID whose total number of <em>Play Count</em> is below a given threshold.</p>
+<p>From now on we have written some functions to help us in a further experiment. The idea is to check if eliminating those features, which represent artists whose total <em>Play Count</em> is below a given threshold, may improve the AUC for the model. We call these artist <em>fewListenedArtists</em>.
 We start here defining the function used to remove the <em>fewListenedArtists</em>.</p>
 
 </div>
@@ -14921,16 +14973,8 @@ We start here defining the function used to remove the <em>fewListenedArtists</e
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><hr></p>
-<h2 id="Pre-training-data-processing">Pre-training data processing<a class="anchor-link" href="#Pre-training-data-processing">&#182;</a></h2><p>Before doing the training, we want to normalize the preference matrix. We are going to do both data standardization and normalization, in order to compare them in terms of quality result of the trained artists suggestions model.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="TODO">TODO<a class="anchor-link" href="#TODO">&#182;</a></h1><p>LATEX per le formule qui sopra</p>
+<h2 id="Pre-training-data-processing">Pre-training data processing<a class="anchor-link" href="#Pre-training-data-processing">&#182;</a></h2><p>Before doing the training, we want to normalize the preference matrix. The idea is to subtract from each playCount value the user mean value for that field.<br>
+The obtained result will be compared with the non-normalized one</p>
 
 </div>
 </div>
@@ -14983,6 +15027,24 @@ We start here defining the function used to remove the <em>fewListenedArtists</e
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="3.4-Training-our-statistical-model">3.4 Training our statistical model<a class="anchor-link" href="#3.4-Training-our-statistical-model">&#182;</a></h2><p>To train a model using ALS, we must use a preference matrix  as an input. MLLIB uses the class <code>Rating</code> to support the construction of a distributed preference matrix.</p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-danger">
+<h2>Please, note</h2><br>
+Our strategy is now to follow the structure of the notebook, analysing the reccomandation system obtained from the <b>non-normalized dataset</b>, and then repeat the procedure with:
+<ul>
+    <li>the <b>normalized</b> version</li>
+    <li>versions <b>without the least popular</b> artists</li>
+    <li>a <b>multi-system voting</b> procedure (something similar to the boosting/bagging approaches)</li>
+</ul>
+<br>
+In order to speed up later our analysis and computations, we have defined some *functions* which are useful for how we are going to work. The structure of the notebook <u>may look different</u> in some points, with respect to the originally proposed one. 
+</div>
 </div>
 </div>
 </div>
@@ -15089,9 +15151,10 @@ The script takes 205.929726 seconds
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><b><u> From the scala doc:</u> </b><br>
-<i>Train a matrix factorization model given an RDD of 'implicit preferences' of users for a subset of products. The ratings matrix is approximated as the product of two lower-rank matrices of a given rank (number of features). To solve for these features, ALS is run iteratively with a level of parallelism determined automatically based on the number of partitions in ratings.</i></p>
-
+<div class="alert alert-warning">
+<b><u> From the scala doc:</u> </b><br>
+<i>Train a matrix factorization model given an RDD of 'implicit preferences' of users for a subset of products. The ratings matrix is approximated as the product of two lower-rank matrices of a given rank (number of features). To solve for these features, ALS is run iteratively with a level of parallelism determined automatically based on the number of partitions in ratings.</i>
+</div>
 </div>
 </div>
 </div>
@@ -15197,16 +15260,18 @@ finish training model in 89.993638 secs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>The resulting model is a MatrixFactorizationModel which is composed of:</p>
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+The resulting model is a MatrixFactorizationModel which is composed of:
 <ul>
-<li>rank: int -&gt; Rank for the features in the model</li>
-<li>userFeaturesRDD: RDD[(Int, Array[Double])] -&gt; RDD of tuples representing the userID and the features computed for the user</li>
-<li>productFeaturesRDD: RDD[(Int, Array[Double])] -&gt; RDD of tuples representing the productID (in our case the artistID) and the features computed for the product (artist)</li>
+    <li>rank: int -> Rank for the features in the model</li>
+<li>userFeaturesRDD: RDD[(Int, Array[Double])] -> RDD of tuples representing the userID and the features computed for the user</li>
+<li>productFeaturesRDD: RDD[(Int, Array[Double])] -> RDD of tuples representing the productID (in our case the artistID) and the features computed for the product (artist)</li>
 </ul>
-<p><br>
-From the paper (Collaborative Filtering for Implicit Feedback Datasets) is clear the role of alfa: it is treated as a confidence level for the rating, in terms of postive ratings which give more confidence for ($p_{ui}$ = 1) with the repsect of having ratings ($p_{ui}$ &lt; 1.0).</p>
-<p>The regularization factor must be determined using cross validation.</p>
-
+<br>
+From the paper [Collaborative Filtering for Implicit Feedback Datasets] is clear the role of alfa: it is treated as a confidence level for the rating, in terms of postive ratings which give more confidence for ($p_{ui}$ = 1) with the repsect of having ratings ($p_{ui}$ < 1.0). 
+<br><br>
+The regularization factor must be determined using cross validation.
+</div>
 </div>
 </div>
 </div>
@@ -15324,9 +15389,10 @@ model saved on disk in 2.493844 secs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>The model has been correctly saved in the HDFS. 
-From the documentation: a human-readable (JSON) file for storing metadata is saved in the HDFS folder: <em>path/metadata/</em></p>
-
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+The model has been correctly saved in the HDFS.<br>
+<u>From the documentation</u>: a human-readable (JSON) file for storing metadata is saved in the HDFS folder: *path/metadata/*
+</div>
 </div>
 </div>
 </div>
@@ -15566,7 +15632,7 @@ Show the top-5 artist names recommendated for a given user, for example: `209376
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Mapping-different-user-with-the-reccomended-artists">Mapping different user with the reccomended artists<a class="anchor-link" href="#Mapping-different-user-with-the-reccomended-artists">&#182;</a></h4><p>Here we have tried, with different user, to map the reccomended artists with the names assosciated with them.</p>
+<h2 id="Mapping-different-user-with-the-reccomended-artists">Mapping different user with the reccomended artists<a class="anchor-link" href="#Mapping-different-user-with-the-reccomended-artists">&#182;</a></h2><p>As suggested, we are now going to try to reccomend artists to different users.</p>
 
 </div>
 </div>
@@ -15642,7 +15708,7 @@ Recommendations for userID: 2401404
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Validate-the-model">Validate the model<a class="anchor-link" href="#Validate-the-model">&#182;</a></h4><p>The technique we are going to use is the "Area under the ROC curve" originally presented in the next section</p>
+<h2 id="Validate-the-model">Validate the model<a class="anchor-link" href="#Validate-the-model">&#182;</a></h2><p>The technique we are going to use is the "Area under the ROC curve" originally presented in the next section</p>
 
 </div>
 </div>
@@ -15775,6 +15841,16 @@ Recommendations for userID: 2401404
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-warning">
+This function does not work if we try to compute the <b>bAllItemIDs</b> variable inside: this is the reason why we decided to implement it as a <b>global</b> one
+</div>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
@@ -15918,6 +15994,32 @@ model saved on disk in 2.323449 secs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+Let us explain <u>why</u> we have created the method above in this way
+<br><br>
+First of all, the reason why it exists is to have an unique method able to:
+<ul>
+    <li>create the <b>Rating</b> matrix</li>
+    <li><b>train</b> the model</li>
+    <li>eventually <b>validate</b> it</li>
+    <li><b>recommend</b> some artists to a bunch of users</li>
+    <li><b>load</b> from and <b>save</b> to disk the model, in order not to waste time recomputing it in the future 
+</ul>
+<br>
+Now: the code may look complicated, but it is actually an execution flow composed by the functions previously defined in this section of the notebook.
+<h3>The problem</h3>
+Our result is not as powerful as we expected because the save/load process <b>is not effective</b> at all. The reason is: Python APIs does not allow us to save on disk RDDs as <u>objects</u> (we are forced to save them as text files)
+<h3>Consequences</h3>
+Because of the operation the method performs, if we want to save computational time we need to save on disk both the model, the rating matrix (RDD of "Ratings") and the validation data (DoubleRDD). Altough we are able to save the model on disk, the rating matrix cannot be saved in a proper format.<br>
+We opted then to create a dictionary (*<b>userArtistDataRDDs</b>*), able to maintain the pointers to all the created RDDs we need to operate
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="3.5-Evaluating-Recommendation-Quality">3.5 Evaluating Recommendation Quality<a class="anchor-link" href="#3.5-Evaluating-Recommendation-Quality">&#182;</a></h2><p>In this section, we study how to evaluate the quality of our model. It's hard to say how good the recommendations are.
 One of serveral methods approach to evaluate  a recommender based on its ability to rank good items (artists) high in a list of recommendations. The problem is how to define "good artists". Currently, by training all data, "good artists" is defined as "artists the user has listened to", and the recommender system has already received all of this information as input. It could trivially return the users previously-listened artists as top recommendations and score perfectly. Indeed, this is not useful, because the recommender's is used to recommend artists that the user has <strong>never</strong> listened to.</p>
 <p>To overcome that problem, we can hide the some of the artist play data and only use the rest to train model. Then, this held-out data can be interpreted as a collection of "good" recommendations for each user. The recommender is asked to rank all items in the model, and the rank of the held-out artists are examined. Ideally the recommender places all of them at or near the top of the list.</p>
@@ -15999,8 +16101,9 @@ finish training model in 114.764969 secs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>These functions have been moved in the previous section.</p>
-
+<div class="alert alert-warning">
+These functions have been moved in the previous section.
+</div>
 </div>
 </div>
 </div>
@@ -16068,7 +16171,7 @@ finish in 88.829242 seconds
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Experiment:-pre-processed-data">Experiment: pre-processed data<a class="anchor-link" href="#Experiment:-pre-processed-data">&#182;</a></h2><p>What if we consider now to analyze dataset that have been pre-processed? (data normalization)</p>
+<h2 id="Experiment:-pre-processed-data">Experiment: pre-processed data<a class="anchor-link" href="#Experiment:-pre-processed-data">&#182;</a></h2><p>What if we consider now to analyze dataset that have been pre-processed? (data standardization)</p>
 
 </div>
 </div>
@@ -16135,7 +16238,12 @@ finish in 67.951473 seconds
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TODO:-perche???">TODO: perche???<a class="anchor-link" href="#TODO:-perche???">&#182;</a></h2>
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+As we can see from the value of AUC, the non-normalized model seems to give us better results.
+<br><br>
+One possible reason is that the standardization of the rows may change the distribution of the data but we cannot prove it here. What we can argue is that, based on what is described in the paper [Collaborative Filtering for Implicit Feedback Datasets] concerning the implementation of ALS in Mllib, the presence of a confidence factor which is increased by the value of the rating may be influencd by the rescalig of some of those retings. That is, we lower the confidence for each rating and we introduce also negative ratings. 
+
+</div>
 </div>
 </div>
 </div>
@@ -16232,6 +16340,21 @@ Threshold: 5 --- AUC: 0.9637559708869771
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+This is different from what we expected: removing very-low popularity artist seems not to improve the effectiveness of the reccomender system. 
+<br><br>
+Is it reue that the ALS algorithm implemneted in Spark Mllib it's modified in order to assign a confidence level based on the value of the rating, but we expected that the removal of features could have improved the AUC. We came to the conclusion that there might be  cases of some users which are quite new in the system and have few <i>playcounts</i> for the few artists. Under hypohtesis that the few entries for some of those users are concerning artsits that we defined as <i>fewListenedArtsits</i>, this appeoach may leave those users with few entries in the Rating matrix or worse it eliminates the users.
+
+<br><br>
+Then when considering the trainig and the validation, some of those users are completly absent in the training but present with  few left entries in the validation. That is, for the Collaborative Fealtering those are new users and we know that there is a <b>cold start</b> problem for which the ALS is not able to provide user features when applied.
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Question-9.3">Question 9.3<a class="anchor-link" href="#Question-9.3">&#182;</a></h4><div class="alert alert-info">
 Now we have the UAC of our model, it’s helpful to benchmark this against a simpler approach. For example, consider recommending the globally most-played artists to every user. This is not personalized, but is simple and may be effective.   
 <ul></ul>
@@ -16293,8 +16416,9 @@ Implement this simple pupolarity-based prediction algorithm, evaluate its AUC sc
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h4><p>The popularity-based algorithm is  performing almost 3% worst than the ALS one. For some extent, the fact that the popularity-based is doing a considerable good job is due to the ALS is just considering the number of times a given artist is listened by a given user. That is, reading the paper [Collaborative Filtering for Implicit Feedback Datasets], the rating is considered as a composiiton of preference $p_{ui}$ with the respect of the user $u$ and the item $i$, and a confidence level $c_{ui}$ which is weighted according to the $alfa$ parameter. So, being a popular artist  defined as the one which is listened the majority of the times, the confidence level in general is expect to be quite high.</p>
-
+<h4 id="Comments">Comments<a class="anchor-link" href="#Comments">&#182;</a></h4><div class="alert alert-warning">
+The popularity-based algorithm is  performing almost 3% worst than the ALS one. For some extent, the fact that the popularity-based is doing a considerable good job is due to the ALS is just considering the number of times a given artist is listened by a given user. That is, reading the paper [Collaborative Filtering for Implicit Feedback Datasets], the rating is considered as a composiiton of preference $p_{ui}$ with the respect of the user $u$ and the item $i$, and a confidence level $c_{ui}$ which is weighted according to the $alfa$ parameter. So, being a popular artist  defined as the one which is listened the majority of the times, the confidence level in general is expect to be quite high.
+</div>
 </div>
 </div>
 </div>
@@ -16446,16 +16570,19 @@ Train model with rank=50 lambda_=0.000100 alpha=40.000000
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h4><p>The search for hyperparameters resulted into the following paramters:</p>
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+The search for <b>hyperparameters</b> resulted into the following paramters: 
 <ul>
-<li>rank: 10</li>
-<li>lambda: 1</li>
-<li>alpha: 40 </li>
+    <li>rank: 10</li>
+    <li>lambda: 1</li>
+    <li>alpha: 40</li>
 </ul>
-<p>For the alpha parameter this is the same value which is suggested in the paper (Collaborative Filtering for Implicit Feedback Datasets) as the value which leades to better results. Just to remind, the alpha parameter is used for weigth more the confience values for which the associated rating is high. Indeed, as the paper suggest, we would like to have higher confidence values $c_{ui}$ for thoses ratings for which the value is high $r_{ui}$ (in our case the number of plays for the artist). That is intuitive, if an artist has been listen a lot we are more confident that the rating for that artist is correlated with his popularity.</p>
-<p><br>
-Also, the second best result is close to the best one. If we observe the values the difference is related to the higer value of the rank.</p>
-
+<br>
+For the alpha parameter this is the same value which is suggested in the paper (Collaborative Filtering for Implicit Feedback Datasets) as the value which leades to better results. Just to remind, the alpha parameter is used for weigth more the confience values for which the associated rating is high. Indeed, as the paper suggest, we would like to have higher confidence values $c_{ui}$ for thoses ratings for which the value is high $r_{ui}$ (in our case the number of plays for the artist). That is intuitive, if an artist has been listen a lot we are more confident that the rating for that artist is correlated with his popularity. 
+<br>
+<br>
+Also, the second best result is close to the best one. If we observe the values the difference is related to the higer value of the rank.
+</div>
 </div>
 </div>
 </div>
@@ -16513,15 +16640,10 @@ Using "optimal" hyper-parameters in question 10.1, re-train the model and show t
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="EXTRA">EXTRA<a class="anchor-link" href="#EXTRA">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We are trying to build three models splitting the dataset in three parts. The split is based on the number of</p>
+<h1 id="EXTRA">EXTRA<a class="anchor-link" href="#EXTRA">&#182;</a></h1><h2 id="Experiment:-test-a-simple-improving-method">Experiment: test a simple improving method<a class="anchor-link" href="#Experiment:-test-a-simple-improving-method">&#182;</a></h2><p>Here we have tried a method we wanted to test for pure practice, reasoning then about the results. The initial idea was about applying a Bagging (bootstap aggregating) but it requires to sample the dataSet with replacement. This is not our case, where for Collaborative Feltering we want to avoid duplicate records as we did previously. What came out is a custom (or better to say "partially") implementation of what is called in the literature <em>Subbaging</em> (subsample aggregating).</p>
+<p><br>
+As said, we borrow partially this idea, because then we proceded creating up to five model starting from the subsampled dataSet and then produce a vote from each one to rank the recommendations for a given user. 
+What we have tryied is coded below:</p>
 
 </div>
 </div>
@@ -16534,11 +16656,13 @@ Using "optimal" hyper-parameters in question 10.1, re-train the model and show t
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># starts with the original dataset normalized</span>
 <span class="n">dataSet</span> <span class="o">=</span> <span class="n">userArtistDataRDDs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span>
 
+<span class="c1"># variables used to store the sampledDataSets and the (AUC, Recommendation) tuples</span>
 <span class="n">sampledDataSets</span><span class="o">=</span> <span class="p">[]</span>
 <span class="n">modelsAUCandRec</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># generate some datasets sampled from the original one</span>
 <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="c1"># sampling without replacement</span>
     <span class="n">new_RDD</span> <span class="o">=</span> <span class="n">dataSet</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
     <span class="n">sampledDataSets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_RDD</span><span class="p">)</span>
     <span class="n">currentRDD</span> <span class="o">=</span> <span class="p">{</span>
@@ -16548,6 +16672,7 @@ Using "optimal" hyper-parameters in question 10.1, re-train the model and show t
             <span class="s1">&#39;validation&#39;</span><span class="p">:</span> <span class="kc">None</span>
         <span class="p">}</span>
     <span class="n">userArtistDataRDDs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">currentRDD</span><span class="p">)</span>
+    <span class="c1"># executing all the functions to generate the Rating and the model. This also returns recommendations</span>
     <span class="n">current_auc</span><span class="p">,</span> <span class="n">rec</span> <span class="o">=</span> <span class="n">all_training_steps</span><span class="p">(</span><span class="n">currentRDD</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="n">showRec</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lsShow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">numbRec</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">modelsAUCandRec</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">current_auc</span><span class="p">,</span> <span class="n">rec</span><span class="p">))</span>
 </pre></div>
@@ -16637,6 +16762,7 @@ finish in 56.663781 seconds
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define a dictionary to rank the recommendations, the user global variables contains the users to recommend</span>
 <span class="n">referenceUser</span> <span class="o">=</span> <span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+<span class="c1"># define a dictionary (hasTable) to map the artist&#39;s names to the occurencies (votes from the models)</span>
 <span class="n">rankingUserReference</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="c1"># extract the recommendation for the first user (userReference). Note, the recommendation are saved in a vector </span>
@@ -16654,6 +16780,8 @@ finish in 56.663781 seconds
 
 <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rankingUserReference</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rankingUserReference</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="p">]</span>    
 <span class="n">tmp</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># printing for testing the results</span>
 <span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
 </pre></div>
 
@@ -16691,7 +16819,8 @@ finish in 56.663781 seconds
 <div class="prompt input_prompt">In&nbsp;[204]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">modelTest</span> <span class="o">=</span> <span class="n">loadModel</span><span class="p">(</span><span class="n">userArtistDataRDDs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;filename&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we recover the model for the original dataSet (the one obtained after cleaning the artistIDs)</span>
+<span class="n">modelTest</span> <span class="o">=</span> <span class="n">loadModel</span><span class="p">(</span><span class="n">userArtistDataRDDs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;filename&#39;</span><span class="p">])</span>
 <span class="n">topN_recommendations</span><span class="p">(</span><span class="n">modelTest</span><span class="p">,</span> <span class="n">referenceUser</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
@@ -16796,7 +16925,8 @@ only showing top 10 rows
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">userArtistNamedDF</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">artistAliasCleanedDF</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;artistID&quot;</span><span class="p">)[</span><span class="n">df</span><span class="o">.</span><span class="n">userID</span> <span class="o">==</span> <span class="n">referenceUser</span><span class="p">]</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we perform a join between the artistCleanedDF (which containes the name of the artists) with the constructed DF</span>
+<span class="n">userArtistNamedDF</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">artistAliasCleanedDF</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;artistID&quot;</span><span class="p">)[</span><span class="n">df</span><span class="o">.</span><span class="n">userID</span> <span class="o">==</span> <span class="n">referenceUser</span><span class="p">]</span><span class="o">.</span><span class="n">cache</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -16875,6 +17005,23 @@ only showing top 10 rows
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comment">Comment<a class="anchor-link" href="#Comment">&#182;</a></h3><div class="alert alert-warning">
+With the final test we verify if the recoomendation given by our combination of models by raking is better that the recommendations given by the basic one. But this affermation is based on inference from the single result obtained here. The result can be refined increasing the number of model included in the subboosting procedure.
+<br>
+<br>
+We want to give in any case our interpretation here. The fact that we random sample the original dataSet, which is an RDD of entries (userID, artistID, playCount) may lead to escluding, randomly, some of those entries for a user. We have observed that the majority of the population is based on entries for which the total plays, given an artist, are low. The sampling add randomness which may lead to the exclusion (considering those not selected) of entries with those artists (the one we defined as *fewListenedArtists*).
+<br>
+<br>
+Given the hypotesis above, we think that the sampling may produce more focused profiles of users (defined by their features, in this case the artists) which can lead to more accurate matching with other users and so recommendation.
+
+</div>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
